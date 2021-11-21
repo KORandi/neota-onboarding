@@ -5,7 +5,7 @@ import { GlobalStyles } from '../styles/global';
 import { darkTheme, lightTheme } from '../styles/theme';
 import { Dashboard } from './Dashboard';
 
-const App = function (): ReactElement {
+export default function App(): ReactElement {
   const context = useContext(ThemeContext);
   const { theme } = context;
 
