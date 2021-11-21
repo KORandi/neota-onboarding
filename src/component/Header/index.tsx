@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import {
   Navbar,
   NavbarBrand,
@@ -6,7 +7,6 @@ import {
   Collapse,
   Nav,
   NavItem,
-  NavLink,
 } from 'reactstrap';
 
 interface INavigatorProps {
@@ -31,14 +31,10 @@ const Navigator: React.FunctionComponent<INavigatorProps> = function () {
             navbar
           >
             <NavItem>
-              <NavLink href="/">
-                List
-              </NavLink>
+              <Link to="/" className="nav-link">List</Link>
             </NavItem>
             <NavItem>
-              <NavLink href="/dashboard">
-                Dashboard
-              </NavLink>
+              <Link to="/dashboard" className="nav-link">Dashboard</Link>
             </NavItem>
           </Nav>
         </Collapse>

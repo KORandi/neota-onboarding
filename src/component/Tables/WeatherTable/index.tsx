@@ -20,17 +20,17 @@ const WeatherTable: React.FunctionComponent<iWeatherTableProps> = function ({ da
       <thead>
         <tr>
           <td>GCM scenario</td>
-          {months.map((month) => <td>{month}</td>)}
+          {months.map((month) => <td key={month}>{month}</td>)}
         </tr>
       </thead>
       <tbody>
         {data.map((record: IClimateDTO) => (
-          <tr>
+          <tr key={record.gcm}>
             <td>
               {getGCMDisplayName(record.gcm)}
             </td>
             {record.monthVals.map((val) => (
-              <td title={`${val}`}>
+              <td key={`${record.gcm}-${val}`} title={`${val}`}>
                 {round(val)}
                 &#8451;
               </td>
