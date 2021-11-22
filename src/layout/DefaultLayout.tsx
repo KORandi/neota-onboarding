@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { Container, Row, Col } from 'reactstrap';
+import FlashMessage from '../component/FlashMessage';
 import DataFilter from '../component/Forms/DataFilter';
 import Header from '../component/Header';
 
@@ -16,6 +17,7 @@ const DefaultLayout: React.FunctionComponent<IDefaultLayoutProps> = function ({ 
   return (
     <>
       <Header />
+      <FlashMessage duration={8000} />
       <div className="pt-3">
         <Container>
           <Row>

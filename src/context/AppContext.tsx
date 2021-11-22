@@ -2,26 +2,74 @@ import React, { createContext, useContext, useState } from 'react';
 import { IClimateDTO } from '../dto/IClimateDTO';
 
 export interface IAppContext {
-    weatherData: IClimateDTO[],
-    updateWeatherData: (data: IClimateDTO[]) => void;
+  climate: {
+    isLoaded: boolean,
+    data: IClimateDTO[]
+  },
+  searchType: string,
+  flashMessages: {message: string, type: string}[];
+  updateClimate: (data: {
+    isLoaded: boolean,
+    data: IClimateDTO[]
+  }) => void;
+  updateSearchType: (data: string) => void;
+  addFlashMessage: (data: {message: string, type: string}) => void;
+  popFlashMessage: () => void;
 }
 
 export const AppContext = createContext<IAppContext>({
-  weatherData: [],
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  updateWeatherData: () => {},
+  climate: {
+    isLoaded: false,
+    data: [],
+  },
+  searchType: '',
+  flashMessages: [],
+  updateClimate: () => null,
+  updateSearchType: () => null,
+  addFlashMessage: () => null,
+  popFlashMessage: () => null,
 });
 
 export const AppContextProvider: React.FunctionComponent = function ({ children }) {
-  const [weatherData, setData] = useState<IClimateDTO[]>([]);
+  const [climate, setClimate] = useState<{
+    isLoaded: boolean,
+    data: IClimateDTO[]
+  }>({
+    isLoaded: true,
+    data: [],
+  });
+  const [searchType, setSearchType] = useState<string>('');
+  const [flashMessages, setFlashMessages] = useState<{message: string, type: string}[]>([]);
 
-  const updateWeatherData = (data: IClimateDTO[]): void => {
-    setData(data);
+  const updateClimate = (climateData: {
+    isLoaded: boolean,
+    data: IClimateDTO[]
+  }): void => {
+    setClimate({ ...climateData });
+  };
+
+  const updateSearchType = (data: string): void => {
+    setSearchType(data);
+  };
+
+  const addFlashMessage = (data: {message: string, type: string}): void => {
+    setFlashMessages((messages) => [...messages, data]);
+  };
+
+  const popFlashMessage = (): void => {
+    setFlashMessages((messages) => {
+      const temp = [...messages];
+      temp.pop();
+      return temp;
+    });
   };
 
   return (
     // eslint-disable-next-line react/jsx-no-constructed-context-values
-    <AppContext.Provider value={{ weatherData, updateWeatherData }}>
+    <AppContext.Provider value={{
+      climate, updateClimate, searchType, updateSearchType, flashMessages, addFlashMessage, popFlashMessage,
+    }}
+    >
       {children}
     </AppContext.Provider>
   );

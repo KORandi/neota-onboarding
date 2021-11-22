@@ -1,44 +1,27 @@
 import React from 'react';
-import { Table } from 'reactstrap';
 import { IClimateDTO } from '../../../dto/IClimateDTO';
-import { getGCMDisplayName } from '../../../util/climateUtils';
-import { round } from '../../../util/numberUtils';
+import WeatherTableComponent from './TableComponent';
 
 interface iWeatherTableProps {
-  data: IClimateDTO[]
+  isLoaded: boolean,
+  data: IClimateDTO[],
+  searchType: string
 }
 
-const WeatherTable: React.FunctionComponent<iWeatherTableProps> = function ({ data }) {
-  const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-
-  if (data.length === 0) {
-    return (<p className="text-muted text-center">Data are not available...</p>);
-  }
-
+const WeatherTable: React.FunctionComponent<iWeatherTableProps> = function ({ data, isLoaded, searchType }) {
   return (
-    <Table>
-      <thead>
-        <tr>
-          <td>GCM scenario</td>
-          {months.map((month) => <td key={month}>{month}</td>)}
-        </tr>
-      </thead>
-      <tbody>
-        {data.map((record: IClimateDTO) => (
-          <tr key={record.gcm}>
-            <td>
-              {getGCMDisplayName(record.gcm)}
-            </td>
-            {record.monthVals.map((val) => (
-              <td key={`${record.gcm}-${val}`} title={`${val}`}>
-                {round(val)}
-                &#8451;
-              </td>
-            ))}
-          </tr>
-        ))}
-      </tbody>
-    </Table>
+    <>
+      {!isLoaded && (
+      <div className="d-flex justify-content-center pt-5">
+        <div className="spinner-border text-primary" role="status" />
+      </div>
+      )}
+      {isLoaded && data.length === 0 && <p className="text-muted text-center">Data are not available...</p>}
+      {isLoaded && data.length > 0
+      && (
+        <WeatherTableComponent data={data} searchType={searchType} />
+      )}
+    </>
   );
 };
 

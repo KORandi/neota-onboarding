@@ -29,28 +29,32 @@ export const COUNTRIES = [
   },
 ];
 
+export const YUG_COUNTRY_CODES = [
+  'SVN', 'HRV', 'BIH', 'MNE', 'SRB', 'MKD',
+];
+
 export const PERIODS = [
   {
     label: '1920-1939',
-    value: '',
+    value: '0',
     from: 1920,
     to: 1939,
   },
   {
     label: '1940-1959',
-    value: '',
+    value: '1',
     from: 1940,
     to: 1959,
   },
   {
     label: '1960-1979',
-    value: '',
+    value: '2',
     from: 1940,
     to: 1979,
   },
   {
     label: '1980-1999',
-    value: '',
+    value: '3',
     from: 1980,
     to: 1999,
   },
@@ -58,11 +62,13 @@ export const PERIODS = [
 
 export const TYPES = [
   {
-    label: 'Temperature, in degrees Celsius',
+    label: 'Temperature',
     value: 'tas',
   },
   {
-    label: 'Precipitation (rainfall and assumed water equivalent), in millimeters',
+    label: 'Precipitation',
     value: 'pr',
   },
 ];
+
+export const MONTHS_SHORT = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
