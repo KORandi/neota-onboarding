@@ -10,23 +10,32 @@ interface ITableComponentProps{
     searchType: string
 }
 
-const WeatherTableComponent: React.FunctionComponent<ITableComponentProps> = function ({ data, searchType }) {
+const TableComponent: React.FunctionComponent<ITableComponentProps> = function ({ data, searchType }) {
   return (
     <Table>
       <thead>
-        <tr>
-          <td>GCM scenario</td>
-          {MONTHS_SHORT.map((month) => <td key={month}>{month}</td>)}
+        <tr className="d-none d-lg-table-row">
+          <th scope="col">GCM scenario</th>
+          {MONTHS_SHORT.map((month) => <th key={month}>{month}</th>)}
         </tr>
       </thead>
       <tbody>
         {data.map((record: IClimateDTO) => (
-          <tr key={record.gcm}>
-            <td>
+          <tr className="d-block d-lg-table-row mt-3 mt-lg-0" key={record.gcm}>
+            <td className="d-block d-lg-table-cell">
+              <strong className="d-inline d-lg-none">
+                GCM scenario:
+                {' '}
+              </strong>
               {getGCMDisplayName(record.gcm)}
             </td>
-            {record.monthVals.map((val) => (
-              <td key={`${record.gcm}-${val}`} title={`${val}`}>
+            {record.monthVals.map((val, index) => (
+              <td className="d-block d-lg-table-cell" key={`${record.gcm}-${val}`} title={`${val}`}>
+                <strong className="d-inline d-lg-none">
+                  {MONTHS_SHORT[index]}
+                  :
+                  {' '}
+                </strong>
                 {round(val)}
                 {searchType === 'tas' && <>&#8451;</>}
                 {searchType === 'pr' && <>mm</>}
@@ -39,4 +48,4 @@ const WeatherTableComponent: React.FunctionComponent<ITableComponentProps> = fun
   );
 };
 
-export default WeatherTableComponent;
+export default TableComponent;
