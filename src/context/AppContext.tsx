@@ -1,4 +1,6 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, {
+  createContext, useContext, useMemo, useState,
+} from 'react';
 import { IClimateDTO } from '../dto/IClimateDTO';
 
 export interface IAppContext {
@@ -45,7 +47,7 @@ export const AppContextProvider: React.FunctionComponent = function ({ children 
     isLoaded: boolean,
     data: IClimateDTO[]
   }): void => {
-    setClimate({ ...climateData });
+    setClimate((oldClimateData) => ({ ...oldClimateData, ...climateData }));
   };
 
   const updateSearchType = (data: string): void => {
@@ -58,17 +60,26 @@ export const AppContextProvider: React.FunctionComponent = function ({ children 
 
   const popFlashMessage = (): void => {
     setFlashMessages((messages) => {
-      const temp = [...messages];
-      temp.pop();
-      return temp;
+      if (messages.length > 0) {
+        const newMessages = [...messages];
+        newMessages.pop();
+        return newMessages;
+      }
+      return messages;
     });
   };
 
   return (
-    // eslint-disable-next-line react/jsx-no-constructed-context-values
-    <AppContext.Provider value={{
-      climate, updateClimate, searchType, updateSearchType, flashMessages, addFlashMessage, popFlashMessage,
-    }}
+    <AppContext.Provider
+      value={useMemo(() => ({
+        climate,
+        searchType,
+        flashMessages,
+        updateClimate,
+        updateSearchType,
+        addFlashMessage,
+        popFlashMessage,
+      }), [climate, searchType, flashMessages])}
     >
       {children}
     </AppContext.Provider>

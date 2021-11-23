@@ -10,17 +10,19 @@ const FlashMessage: React.FunctionComponent<IFashMessageProps> = function ({ dur
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      popFlashMessage();
+      if (flashMessages.length > 0) {
+        popFlashMessage();
+      }
     }, duration);
     return () => clearTimeout(timer);
-  });
+  }, [flashMessages, duration, popFlashMessage]);
 
   return (
     <div>
       {flashMessages.length > 0 && (
       <div className="pt-3">
         {flashMessages.map(({ message, type }) => (
-          <div key={message} className={`alert alert-${type}`} role="alert">
+          <div key={`${message}-${Math.random()}`} className={`alert alert-${type}`} role="alert">
             {message}
           </div>
         ))}

@@ -1,6 +1,6 @@
 import React from 'react';
 import { IClimateDTO } from '../../../dto/IClimateDTO';
-import WeatherTableComponent from './TableComponent';
+import WeatherTableComponent from './WeatherTableComponent';
 
 interface iWeatherTableProps {
   isLoaded: boolean,
@@ -25,4 +25,4 @@ const WeatherTable: React.FunctionComponent<iWeatherTableProps> = function ({ da
   );
 };
 
-export default WeatherTable;
+export default React.memo(WeatherTable);

@@ -17,7 +17,7 @@ const DefaultLayout: React.FunctionComponent<IDefaultLayoutProps> = function ({ 
   return (
     <>
       <Header />
-      <FlashMessage duration={8000} />
+      <FlashMessage duration={5000} />
       <div className="pt-3">
         <Container>
           <Row>

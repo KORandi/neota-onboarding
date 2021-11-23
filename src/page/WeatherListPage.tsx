@@ -7,7 +7,6 @@ import DefaultLayout from '../layout/DefaultLayout';
 const WeatherListPage: React.FunctionComponent = function () {
   const title = 'Weather List';
   const { climate: { isLoaded, data }, searchType } = useAppContext();
-
   return (
     <DefaultLayout title={title}>
       <Container className="pt-3">
