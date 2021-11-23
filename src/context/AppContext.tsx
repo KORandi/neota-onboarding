@@ -3,7 +3,7 @@ import React, {
 } from 'react';
 import { IClimateDTO } from '../dto/IClimateDTO';
 
-export interface IAppContext {
+interface IAppContext {
   climate: {
     isLoaded: boolean,
     data: IClimateDTO[]

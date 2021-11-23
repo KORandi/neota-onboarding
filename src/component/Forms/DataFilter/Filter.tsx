@@ -4,17 +4,12 @@ import Select from 'react-select';
 import classNames from 'classnames';
 import { ISelectOption } from '../../../util/optionUtils';
 
-export interface IOptionsOrGroups {
-    label: string,
-    value: string
-}
-
-export interface IFilterProps {
-  options: IOptionsOrGroups[]
-  placeholder?: string,
+interface IFilterProps {
+  options: { label: string, value: string }[],
+  placeholder: string,
   onChange: (selectedRecord: ISelectOption | null) => void,
   onBlur: React.FocusEventHandler<HTMLInputElement> | undefined,
-  value?: ISelectOption | null,
+  value: ISelectOption | null,
   name: string,
   fieldState: ControllerFieldState
 }

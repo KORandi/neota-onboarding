@@ -9,11 +9,7 @@ import {
   NavItem,
 } from 'reactstrap';
 
-interface INavigatorProps {
-  menuItemList?: string[]
-}
-
-const Navigator: React.FunctionComponent<INavigatorProps> = function () {
+const Navigator: React.FunctionComponent = function () {
   return (
     <div>
       <Navbar

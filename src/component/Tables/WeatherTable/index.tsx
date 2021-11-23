@@ -2,13 +2,13 @@ import React from 'react';
 import { IClimateDTO } from '../../../dto/IClimateDTO';
 import WeatherTableComponent from './WeatherTableComponent';
 
-interface iWeatherTableProps {
+interface IWeatherTableProps {
   isLoaded: boolean,
   data: IClimateDTO[],
   searchType: string
 }
 
-const WeatherTable: React.FunctionComponent<iWeatherTableProps> = function ({ data, isLoaded, searchType }) {
+const WeatherTable: React.FunctionComponent<IWeatherTableProps> = function ({ data, isLoaded, searchType }) {
   return (
     <>
       {!isLoaded && (
