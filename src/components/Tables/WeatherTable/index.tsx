@@ -1,4 +1,5 @@
 import React from 'react';
+import { useAppContext } from '../../../contexts/AppContext';
 import { IClimateMavgDTO } from '../../../dtos/IClimateMavgDTO';
 import WeatherTableComponent from './WeatherTableComponent';
 
@@ -9,6 +10,7 @@ interface IWeatherTableProps {
 }
 
 const WeatherTable: React.FunctionComponent<IWeatherTableProps> = function ({ data, isLoaded, searchType }) {
+  const { filter: { country, type, period } } = useAppContext();
   return (
     <>
       {!isLoaded && (
@@ -19,7 +21,29 @@ const WeatherTable: React.FunctionComponent<IWeatherTableProps> = function ({ da
       {isLoaded && data.length === 0 && <p className="text-muted text-center">Data are not available...</p>}
       {isLoaded && data.length > 0
       && (
-        <WeatherTableComponent data={data} searchType={searchType} />
+        <div>
+          {country && type && period
+          && (
+          <div>
+            <div>
+              <strong>Country:</strong>
+              {' '}
+              {country.label}
+            </div>
+            <div>
+              <strong>Period:</strong>
+              {' '}
+              {period.label}
+            </div>
+            <div>
+              <strong>Type:</strong>
+              {' '}
+              {type.label}
+            </div>
+          </div>
+          )}
+          <WeatherTableComponent data={data} searchType={searchType} />
+        </div>
       )}
     </>
   );
