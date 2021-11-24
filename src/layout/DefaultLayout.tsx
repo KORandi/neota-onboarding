@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { Container, Row, Col } from 'reactstrap';
 import FlashMessage from '../component/FlashMessage';
+import DataEntry from '../component/Forms/DataEntry';
 import DataFilter from '../component/Forms/DataFilter';
 import Header from '../component/Header';
 
@@ -28,7 +29,20 @@ const DefaultLayout: React.FunctionComponent<IDefaultLayoutProps> = function ({ 
             </Col>
           </Row>
         </Container>
-        <DataFilter />
+        <Container>
+          <Row className="justify-content-end pt-3">
+            <Col>
+              <div className="d-flex justify-content-end">
+                <div>
+                  <DataFilter />
+                </div>
+                <div className="ms-3">
+                  <DataEntry />
+                </div>
+              </div>
+            </Col>
+          </Row>
+        </Container>
         {children}
       </div>
     </>

@@ -1,14 +1,14 @@
 import React from 'react';
-import { IClimateMavgDTO } from '../../../dto/IClimateMavgDTO';
-import WeatherTableComponent from './WeatherTableComponent';
+import { IClimateAavgDTO } from '../../../dto/IClimateAavgDTO';
+import WeatherGraphComponent from './WeatherGraphComponent';
 
-interface IWeatherTableProps {
+interface WeatherGrapListProps {
   isLoaded: boolean,
-  data: IClimateMavgDTO[],
+  data: IClimateAavgDTO[],
   searchType: string
 }
 
-const WeatherTable: React.FunctionComponent<IWeatherTableProps> = function ({ data, isLoaded, searchType }) {
+const WeatherGraph: React.FunctionComponent<WeatherGrapListProps> = function ({ isLoaded, data, searchType }) {
   return (
     <>
       {!isLoaded && (
@@ -19,10 +19,10 @@ const WeatherTable: React.FunctionComponent<IWeatherTableProps> = function ({ da
       {isLoaded && data.length === 0 && <p className="text-muted text-center">Data are not available...</p>}
       {isLoaded && data.length > 0
       && (
-        <WeatherTableComponent data={data} searchType={searchType} />
+        <div><WeatherGraphComponent data={data} searchType={searchType} /></div>
       )}
     </>
   );
 };
 
-export default React.memo(WeatherTable);
+export default WeatherGraph;

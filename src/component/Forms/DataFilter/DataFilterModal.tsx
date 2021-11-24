@@ -1,51 +1,41 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import {
-  Modal, ModalBody, ModalFooter, Button, Container, Row, Col,
+  Modal, ModalBody, ModalFooter, Button, Container, Row, Col, FormGroup, Label,
 } from 'reactstrap';
 import { useAppContext } from '../../../context/AppContext';
-import { fetchMonthlyAvarage } from '../../../util/api';
 import {
-  getCountries, getPeriods, getTypes, IPeriodSelectOption, ISelectOption,
+  getCountries, getPeriods, getTypes,
 } from '../../../util/optionUtils';
 import Filter from './Filter';
+import { IModalForm } from '../../../ifaces/IModalForm';
 
 interface IDataFilterModalProps {
   isOpen: boolean,
   toggle: () => void
 }
 
-interface IModalForm {
-  country: ISelectOption,
-  period: IPeriodSelectOption,
-  type: ISelectOption
-}
-
 const DataFilterModal: React.FunctionComponent<IDataFilterModalProps> = function ({ isOpen, toggle }) {
   const {
-    handleSubmit, control,
-  } = useForm<IModalForm>();
-  const { updateClimate: updateWeatherData, updateSearchType, addFlashMessage } = useAppContext();
+    updateMavg, updateAavg, updateFilter, filter,
+  } = useAppContext();
+  const { handleSubmit, control, setValue } = useForm<IModalForm>();
   const countryOptions = getCountries();
   const periodOptions = getPeriods();
   const typeOptions = getTypes();
 
-  const updateData = async ({
-    country: { value: countryName },
-    period: { from, to },
-    type: { value: typeName },
-  }: IModalForm): Promise<void> => {
+  const updateData = (newData: IModalForm): void => {
+    updateFilter(newData);
+    updateMavg({ isLoaded: false, data: [] });
+    updateAavg({ isLoaded: false, data: [] });
     toggle();
-    updateWeatherData({ isLoaded: false, data: [] });
-    try {
-      const result = await fetchMonthlyAvarage(countryName, typeName, from, to);
-      updateWeatherData({ isLoaded: true, data: result });
-    } catch (error) {
-      addFlashMessage({ message: 'Endpoint responed with error. Please contact administrator', type: 'danger' });
-      updateWeatherData({ isLoaded: true, data: [] });
-    }
-    updateSearchType(typeName);
   };
+
+  useEffect(() => {
+    setValue('country', filter.country);
+    setValue('period', filter.period);
+    setValue('type', filter.type);
+  });
 
   return (
     <Modal isOpen={isOpen} toggle={toggle}>
@@ -58,77 +48,86 @@ const DataFilterModal: React.FunctionComponent<IDataFilterModalProps> = function
           <Container>
             <Row>
               <Col>
-                <Controller
-                  control={control}
-                  rules={{ required: 'Please select country' }}
-                  name="country"
-                  render={({
-                    field: {
-                      onChange, onBlur, value, name,
-                    },
-                    fieldState,
-                  }) => (
-                    <Filter
-                      placeholder="Select country"
-                      options={countryOptions}
-                      onChange={onChange}
-                      onBlur={onBlur}
-                      value={value}
-                      name={name}
-                      fieldState={fieldState}
-                    />
-                  )}
-                />
+                <FormGroup>
+                  <Label>Country:</Label>
+                  <Controller
+                    control={control}
+                    rules={{ required: 'Please select country' }}
+                    name="country"
+                    render={({
+                      field: {
+                        onChange, onBlur, value, name,
+                      },
+                      fieldState,
+                    }) => (
+                      <Filter
+                        placeholder="Select country"
+                        options={countryOptions}
+                        onChange={onChange}
+                        onBlur={onBlur}
+                        value={value || null}
+                        name={name}
+                        fieldState={fieldState}
+                      />
+                    )}
+                  />
+                </FormGroup>
               </Col>
             </Row>
-            <Row className="pt-3">
+            <Row>
               <Col>
-                <Controller
-                  control={control}
-                  rules={{ required: 'Please select period' }}
-                  name="period"
-                  render={({
-                    field: {
-                      onChange, onBlur, value, name,
-                    },
-                    fieldState,
-                  }) => (
-                    <Filter
-                      placeholder="Select period"
-                      options={periodOptions}
-                      onChange={onChange}
-                      onBlur={onBlur}
-                      value={value}
-                      name={name}
-                      fieldState={fieldState}
-                    />
-                  )}
-                />
+                <FormGroup>
+                  <Label>Period: </Label>
+                  <Controller
+                    control={control}
+                    rules={{ required: 'Please select period' }}
+                    name="period"
+                    render={({
+                      field: {
+                        onChange, onBlur, value, name,
+                      },
+                      fieldState,
+                    }) => (
+                      <Filter
+                        placeholder="Select period"
+                        options={periodOptions}
+                        onChange={onChange}
+                        onBlur={onBlur}
+                        value={value || null}
+                        name={name}
+                        fieldState={fieldState}
+                      />
+                    )}
+                  />
+                </FormGroup>
               </Col>
             </Row>
-            <Row className="pt-3">
+            <Row>
               <Col>
-                <Controller
-                  control={control}
-                  rules={{ required: 'Please select type' }}
-                  name="type"
-                  render={({
-                    field: {
-                      onChange, onBlur, value, name,
-                    },
-                    fieldState,
-                  }) => (
-                    <Filter
-                      placeholder="Select type"
-                      options={typeOptions}
-                      onChange={onChange}
-                      onBlur={onBlur}
-                      value={value}
-                      name={name}
-                      fieldState={fieldState}
-                    />
-                  )}
-                />
+                <FormGroup>
+                  <Label>Type: </Label>
+                  <Controller
+                    control={control}
+                    rules={{ required: 'Please select type' }}
+                    name="type"
+                    render={({
+                      field: {
+                        onChange, onBlur, value, name,
+                      },
+                      fieldState,
+                    }) => (
+                      <Filter
+                        placeholder="Select type"
+                        options={typeOptions}
+                        onChange={onChange}
+                        onBlur={onBlur}
+                        value={value || null}
+                        name={name}
+                        fieldState={fieldState}
+                      />
+                    )}
+                  />
+                </FormGroup>
               </Col>
             </Row>
           </Container>

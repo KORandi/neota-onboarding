@@ -1,12 +1,13 @@
 import React from 'react';
 import { Table } from 'reactstrap';
-import { IClimateDTO } from '../../../dto/IClimateDTO';
+import { IClimateMavgDTO } from '../../../dto/IClimateMavgDTO';
 import { getGCMDisplayName } from '../../../util/climateUtils';
 import { MONTHS_SHORT } from '../../../util/constants';
 import { round } from '../../../util/numberUtils';
+import { getMeasurementUnit } from '../../../util/templateUtils';
 
 interface ITableComponentProps{
-    data: IClimateDTO[],
+    data: IClimateMavgDTO[],
     searchType: string
 }
 
@@ -21,8 +22,8 @@ const WeatherTableComponent: React.FunctionComponent<ITableComponentProps> = fun
           </tr>
         </thead>
         <tbody>
-          {data.map((record: IClimateDTO) => (
-            <tr className="d-block d-lg-table-row mt-3 mt-lg-0" key={record.gcm}>
+          {data.map((record: IClimateMavgDTO, index) => (
+            <tr className="d-block d-lg-table-row mt-3 mt-lg-0" key={`${record.gcm}-${`n${index}`}`}>
               <td className="d-block d-lg-table-cell">
                 <strong className="d-inline d-lg-none">
                   GCM scenario:
@@ -30,16 +31,27 @@ const WeatherTableComponent: React.FunctionComponent<ITableComponentProps> = fun
                 </strong>
                 {getGCMDisplayName(record.gcm)}
               </td>
-              {record.monthVals.map((val, index) => (
-                <td className="d-block d-lg-table-cell" key={`${record.gcm}-${val}`} title={`${val}`}>
+              {record.monthVals.map((val, monthIndex) => (
+                <td
+                  className="d-block d-lg-table-cell"
+                  key={`${record.gcm}-${`i${monthIndex}`}`}
+                  title={`${val || ''}`}
+                >
                   <strong className="d-inline d-lg-none">
-                    {MONTHS_SHORT[index]}
+                    {MONTHS_SHORT[monthIndex]}
                     :
                     {' '}
                   </strong>
-                  {round(val)}
-                  {searchType === 'tas' && <>&#8451;</>}
-                  {searchType === 'pr' && <>mm</>}
+                  {(val || val === 0)
+                  && (
+                  <>
+                    {round(val)}
+                    {getMeasurementUnit(searchType)}
+                  </>
+                  )}
+                  {
+                    !(val || val === 0) && '---'
+                  }
                 </td>
               ))}
             </tr>

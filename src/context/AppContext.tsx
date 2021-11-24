@@ -1,57 +1,82 @@
 import React, {
   createContext, useContext, useMemo, useState,
 } from 'react';
-import { IClimateDTO } from '../dto/IClimateDTO';
+import { IClimateAavgDTO } from '../dto/IClimateAavgDTO';
+import { IClimateMavgDTO } from '../dto/IClimateMavgDTO';
+import { IModalForm } from '../ifaces/IModalForm';
 
 interface IAppContext {
-  climate: {
+  mavg: {
     isLoaded: boolean,
-    data: IClimateDTO[]
+    data: IClimateMavgDTO[]
   },
-  searchType: string,
-  flashMessages: {message: string, type: string}[];
-  updateClimate: (data: {
+  aavg: {
     isLoaded: boolean,
-    data: IClimateDTO[]
+    data: IClimateAavgDTO[]
+  },
+  filter: IModalForm,
+  flashMessages: {message: string, type: string}[];
+  updateMavg: (data: {
+    isLoaded: boolean,
+    data: IClimateMavgDTO[]
   }) => void;
-  updateSearchType: (data: string) => void;
+  updateAavg: (data: {
+    isLoaded: boolean,
+    data: IClimateAavgDTO[]
+  }) => void;
   addFlashMessage: (data: {message: string, type: string}) => void;
   popFlashMessage: () => void;
+  updateFilter: (filter: IModalForm) => void;
 }
 
 export const AppContext = createContext<IAppContext>({
-  climate: {
+  mavg: {
     isLoaded: false,
     data: [],
   },
-  searchType: '',
+  aavg: {
+    isLoaded: false,
+    data: [],
+  },
+  filter: {},
   flashMessages: [],
-  updateClimate: () => null,
-  updateSearchType: () => null,
+  updateMavg: () => null,
+  updateAavg: () => null,
   addFlashMessage: () => null,
   popFlashMessage: () => null,
+  updateFilter: () => null,
 });
 
 export const AppContextProvider: React.FunctionComponent = function ({ children }) {
-  const [climate, setClimate] = useState<{
+  const [mavg, setMavg] = useState<{
     isLoaded: boolean,
-    data: IClimateDTO[]
+    data: IClimateMavgDTO[]
   }>({
     isLoaded: true,
     data: [],
   });
-  const [searchType, setSearchType] = useState<string>('');
-  const [flashMessages, setFlashMessages] = useState<{message: string, type: string}[]>([]);
-
-  const updateClimate = (climateData: {
+  const [aavg, setAavg] = useState<{
     isLoaded: boolean,
-    data: IClimateDTO[]
+    data: IClimateAavgDTO[]
+  }>({
+    isLoaded: true,
+    data: [],
+  });
+  const [flashMessages, setFlashMessages] = useState<{message: string, type: string}[]>([]);
+  const [filter, setFilter] = useState<IModalForm>({});
+
+  const updateMavg = (climateData: {
+    isLoaded: boolean,
+    data: IClimateMavgDTO[]
   }): void => {
-    setClimate((oldClimateData) => ({ ...oldClimateData, ...climateData }));
+    setMavg((oldClimateData) => ({ ...oldClimateData, ...climateData }));
   };
 
-  const updateSearchType = (data: string): void => {
-    setSearchType(data);
+  const updateAavg = (climateData: {
+    isLoaded: boolean,
+    data: IClimateAavgDTO[]
+  }): void => {
+    setAavg((oldClimateData) => ({ ...oldClimateData, ...climateData }));
   };
 
   const addFlashMessage = (data: {message: string, type: string}): void => {
@@ -69,17 +94,23 @@ export const AppContextProvider: React.FunctionComponent = function ({ children 
     });
   };
 
+  const updateFilter = (newFilter: IModalForm): void => {
+    setFilter(newFilter);
+  };
+
   return (
     <AppContext.Provider
       value={useMemo(() => ({
-        climate,
-        searchType,
+        mavg,
+        aavg,
         flashMessages,
-        updateClimate,
-        updateSearchType,
+        filter,
+        updateMavg,
+        updateAavg,
         addFlashMessage,
         popFlashMessage,
-      }), [climate, searchType, flashMessages])}
+        updateFilter,
+      }), [mavg, aavg, flashMessages, filter])}
     >
       {children}
     </AppContext.Provider>
