@@ -29,23 +29,7 @@ interface IAppContext {
   updateFilter: (filter: IFilterForm) => void;
 }
 
-export const AppContext = createContext<IAppContext>({
-  mavg: {
-    isLoaded: false,
-    data: [],
-  },
-  aavg: {
-    isLoaded: false,
-    data: [],
-  },
-  filter: {},
-  flashMessages: [],
-  updateMavg: () => null,
-  updateAavg: () => null,
-  addFlashMessage: () => null,
-  popFlashMessage: () => null,
-  updateFilter: () => null,
-});
+const AppContext = createContext<IAppContext>({} as IAppContext);
 
 export const AppContextProvider: React.FunctionComponent = function ({ children }) {
   const [mavg, setMavg] = useState<{
