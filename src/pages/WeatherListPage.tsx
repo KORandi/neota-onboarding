@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import { Container, Row, Col } from 'reactstrap';
-import WeatherTable from '../component/Tables/WeatherTable';
-import { useAppContext } from '../context/AppContext';
-import DefaultLayout from '../layout/DefaultLayout';
+import WeatherTable from '../components/Tables/WeatherTable';
+import { useAppContext } from '../contexts/AppContext';
+import DefaultLayout from '../layouts/DefaultLayout';
 import { fetchMonthlyAvarage } from '../api/climateDataAPI';
 
 const WeatherListPage: React.FunctionComponent = function () {

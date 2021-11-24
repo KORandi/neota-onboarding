@@ -2,7 +2,7 @@ import React from 'react';
 import { ControllerFieldState } from 'react-hook-form';
 import Select from 'react-select';
 import classNames from 'classnames';
-import { ISelectOption } from '../../../util/optionUtils';
+import { ISelectOption } from '../../../utils/optionUtils';
 
 interface IFilterProps {
   options: { label: string, value: string }[],

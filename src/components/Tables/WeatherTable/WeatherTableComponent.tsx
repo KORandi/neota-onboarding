@@ -1,10 +1,10 @@
 import React from 'react';
 import { Table } from 'reactstrap';
-import { IClimateMavgDTO } from '../../../dto/IClimateMavgDTO';
-import { getGCMDisplayName } from '../../../util/climateUtils';
-import { MONTHS_SHORT } from '../../../util/constants';
-import { round } from '../../../util/numberUtils';
-import { getMeasurementUnit } from '../../../util/templateUtils';
+import { IClimateMavgDTO } from '../../../dtos/IClimateMavgDTO';
+import { getGCMDisplayName } from '../../../utils/climateUtils';
+import { MONTHS_SHORT } from '../../../utils/constants';
+import { round } from '../../../utils/numberUtils';
+import { getMeasurementUnit } from '../../../utils/templateUtils';
 
 interface ITableComponentProps{
     data: IClimateMavgDTO[],

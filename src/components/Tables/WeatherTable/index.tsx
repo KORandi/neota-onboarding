@@ -1,5 +1,5 @@
 import React from 'react';
-import { IClimateMavgDTO } from '../../../dto/IClimateMavgDTO';
+import { IClimateMavgDTO } from '../../../dtos/IClimateMavgDTO';
 import WeatherTableComponent from './WeatherTableComponent';
 
 interface IWeatherTableProps {

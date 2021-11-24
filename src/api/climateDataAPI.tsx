@@ -1,6 +1,6 @@
-import { IClimateAavgDTO } from '../dto/IClimateAavgDTO';
-import { IClimateMavgDTO } from '../dto/IClimateMavgDTO';
-import { YUG_COUNTRY_CODES } from '../util/constants';
+import { IClimateAavgDTO } from '../dtos/IClimateAavgDTO';
+import { IClimateMavgDTO } from '../dtos/IClimateMavgDTO';
+import { YUG_COUNTRY_CODES } from '../utils/constants';
 
 const endpoint = 'http://climatedataapi.worldbank.org/climateweb/rest/v1/country';
 

@@ -1,8 +1,8 @@
 import React, { ReactElement } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { AppContextProvider } from './context/AppContext';
-import WeatherDashboardPage from './page/WeatherDashboardPage';
-import WeatherListPage from './page/WeatherListPage';
+import { AppContextProvider } from './contexts/AppContext';
+import WeatherDashboardPage from './pages/WeatherDashboardPage';
+import WeatherListPage from './pages/WeatherListPage';
 
 const App = function (): ReactElement {
   return (

@@ -1,9 +1,9 @@
 import React, {
   createContext, useContext, useMemo, useState,
 } from 'react';
-import { IClimateAavgDTO } from '../dto/IClimateAavgDTO';
-import { IClimateMavgDTO } from '../dto/IClimateMavgDTO';
-import { IModalForm } from '../ifaces/IModalForm';
+import { IClimateAavgDTO } from '../dtos/IClimateAavgDTO';
+import { IClimateMavgDTO } from '../dtos/IClimateMavgDTO';
+import { IFilterForm } from '../ifaces/IFilterForm';
 
 interface IAppContext {
   mavg: {
@@ -14,7 +14,7 @@ interface IAppContext {
     isLoaded: boolean,
     data: IClimateAavgDTO[]
   },
-  filter: IModalForm,
+  filter: IFilterForm,
   flashMessages: {message: string, type: string}[];
   updateMavg: (data: {
     isLoaded: boolean,
@@ -26,7 +26,7 @@ interface IAppContext {
   }) => void;
   addFlashMessage: (data: {message: string, type: string}) => void;
   popFlashMessage: () => void;
-  updateFilter: (filter: IModalForm) => void;
+  updateFilter: (filter: IFilterForm) => void;
 }
 
 export const AppContext = createContext<IAppContext>({
@@ -63,7 +63,7 @@ export const AppContextProvider: React.FunctionComponent = function ({ children 
     data: [],
   });
   const [flashMessages, setFlashMessages] = useState<{message: string, type: string}[]>([]);
-  const [filter, setFilter] = useState<IModalForm>({});
+  const [filter, setFilter] = useState<IFilterForm>({});
 
   const updateMavg = (climateData: {
     isLoaded: boolean,
@@ -94,7 +94,7 @@ export const AppContextProvider: React.FunctionComponent = function ({ children 
     });
   };
 
-  const updateFilter = (newFilter: IModalForm): void => {
+  const updateFilter = (newFilter: IFilterForm): void => {
     setFilter(newFilter);
   };
 

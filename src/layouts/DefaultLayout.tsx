@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
 import { Container, Row, Col } from 'reactstrap';
-import FlashMessage from '../component/FlashMessage';
-import DataEntry from '../component/Forms/DataEntry';
-import DataFilter from '../component/Forms/DataFilter';
-import Header from '../component/Header';
+import FlashMessage from '../components/FlashMessage';
+import DataEntry from '../components/Forms/DataEntry';
+import DataFilter from '../components/Forms/DataFilter';
+import Header from '../components/Header';
 
 interface IDefaultLayoutProps {
   title: string,

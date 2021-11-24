@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import { Container, Col, Row } from 'reactstrap';
-import WeatherGraph from '../component/Graphs/WeatherGraph';
-import { useAppContext } from '../context/AppContext';
-import DefaultLayout from '../layout/DefaultLayout';
+import WeatherGraph from '../components/Graphs/WeatherGraph';
+import { useAppContext } from '../contexts/AppContext';
+import DefaultLayout from '../layouts/DefaultLayout';
 import { fetchAnnualAvarage } from '../api/climateDataAPI';
 
 const IWeatherDashboardPage: React.FunctionComponent = function () {

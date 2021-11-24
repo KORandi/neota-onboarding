@@ -3,12 +3,12 @@ import { Controller, useForm } from 'react-hook-form';
 import {
   Modal, ModalBody, ModalFooter, Button, Container, Row, Col, FormGroup, Label,
 } from 'reactstrap';
-import { useAppContext } from '../../../context/AppContext';
+import { useAppContext } from '../../../contexts/AppContext';
 import {
   getCountries, getPeriods, getTypes,
-} from '../../../util/optionUtils';
+} from '../../../utils/optionUtils';
 import Filter from './Filter';
-import { IModalForm } from '../../../ifaces/IModalForm';
+import { IFilterForm } from '../../../ifaces/IFilterForm';
 
 interface IDataFilterModalProps {
   isOpen: boolean,
@@ -19,12 +19,12 @@ const DataFilterModal: React.FunctionComponent<IDataFilterModalProps> = function
   const {
     updateMavg, updateAavg, updateFilter, filter,
   } = useAppContext();
-  const { handleSubmit, control, setValue } = useForm<IModalForm>();
+  const { handleSubmit, control, setValue } = useForm<IFilterForm>();
   const countryOptions = getCountries();
   const periodOptions = getPeriods();
   const typeOptions = getTypes();
 
-  const updateData = (newData: IModalForm): void => {
+  const updateData = (newData: IFilterForm): void => {
     updateFilter(newData);
     updateMavg({ isLoaded: false, data: [] });
     updateAavg({ isLoaded: false, data: [] });
