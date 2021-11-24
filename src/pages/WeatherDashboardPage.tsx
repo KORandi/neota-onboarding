@@ -32,7 +32,8 @@ const WeatherDashboardPage: React.FunctionComponent<WeatherDashboardPageProps> =
         }
       }
     })();
-  });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isLoaded]);
 
   return (
     <DefaultLayout title={title}>

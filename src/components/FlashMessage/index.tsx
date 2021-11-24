@@ -15,7 +15,8 @@ const FlashMessage: React.FunctionComponent<IFashMessageProps> = function ({ dur
       }
     }, duration);
     return () => clearTimeout(timer);
-  }, [flashMessages, duration, popFlashMessage]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [flashMessages]);
 
   return (
     <div>

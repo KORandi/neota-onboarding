@@ -32,7 +32,8 @@ const WeatherListPage: React.FunctionComponent<WeatherListPageProps> = function 
         }
       }
     })();
-  });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isLoaded]);
 
   return (
     <DefaultLayout title={title}>
