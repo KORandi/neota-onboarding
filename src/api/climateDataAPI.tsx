@@ -11,7 +11,6 @@ export async function fetchMonthlyAvarage(
   to: number,
 ): Promise<IClimateMavgDTO[]> {
   if (countryCode === 'YUG') {
-    // Rule disabled due recursion call
     // eslint-disable-next-line @typescript-eslint/no-use-before-define
     return fetchMonthlyAvarageForYUG(type, from, to);
   }
@@ -26,7 +25,6 @@ export async function fetchAnnualAvarage(
   to: number,
 ): Promise<IClimateAavgDTO[]> {
   if (countryCode === 'YUG') {
-    // Rule disabled due recursion call
     // eslint-disable-next-line @typescript-eslint/no-use-before-define
     return fetchAnnualAvarageForYUG(type, from, to);
   }
