@@ -39,7 +39,7 @@ const WeatherDashboardPage: React.FunctionComponent<WeatherDashboardPageProps> =
       <Container className="pt-3">
         <Row>
           <Col>
-            <WeatherGraph isLoaded={isLoaded} data={data} searchType={type?.value || ''} />
+            <WeatherGraph isLoaded={isLoaded} data={data} />
           </Col>
         </Row>
       </Container>
