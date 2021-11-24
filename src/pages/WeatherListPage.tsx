@@ -5,8 +5,11 @@ import { useAppContext } from '../contexts/AppContext';
 import DefaultLayout from '../layouts/DefaultLayout';
 import { fetchMonthlyAvarage } from '../api/climateDataAPI';
 
-const WeatherListPage: React.FunctionComponent = function () {
-  const title = 'Weather List';
+interface WeatherListPageProps {
+  title: string
+}
+
+const WeatherListPage: React.FunctionComponent<WeatherListPageProps> = function ({ title }) {
   const {
     mavg: { isLoaded, data }, updateMavg, addFlashMessage, filter: { type, country, period },
   } = useAppContext();

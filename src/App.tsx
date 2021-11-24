@@ -9,8 +9,8 @@ const App = function (): ReactElement {
     <AppContextProvider>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<WeatherListPage />} />
-          <Route path="/dashboard" element={<WeatherDashboardPage />} />
+          <Route path="/" element={<WeatherListPage title="Weather List" />} />
+          <Route path="/dashboard" element={<WeatherDashboardPage title="Weather Dashboard" />} />
         </Routes>
       </BrowserRouter>
     </AppContextProvider>

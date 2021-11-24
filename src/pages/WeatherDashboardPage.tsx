@@ -5,9 +5,11 @@ import { useAppContext } from '../contexts/AppContext';
 import DefaultLayout from '../layouts/DefaultLayout';
 import { fetchAnnualAvarage } from '../api/climateDataAPI';
 
-const IWeatherDashboardPage: React.FunctionComponent = function () {
-  const title = 'Dashboard';
+interface WeatherDashboardPageProps {
+  title: string
+}
 
+const WeatherDashboardPage: React.FunctionComponent<WeatherDashboardPageProps> = function ({ title }) {
   const {
     aavg: { isLoaded, data }, updateAavg, addFlashMessage, filter: { type, country, period },
   } = useAppContext();
@@ -45,4 +47,4 @@ const IWeatherDashboardPage: React.FunctionComponent = function () {
   );
 };
 
-export default IWeatherDashboardPage;
+export default WeatherDashboardPage;
