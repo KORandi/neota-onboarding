@@ -4,6 +4,7 @@ import React, {
 import { IClimateAavgDTO } from '../dtos/IClimateAavgDTO';
 import { IClimateMavgDTO } from '../dtos/IClimateMavgDTO';
 import { IFilterForm } from '../ifaces/IFilterForm';
+import { COUNTRIES, PERIODS, TYPES } from '../utils/constants';
 
 interface IAppContext {
   mavg: {
@@ -36,18 +37,22 @@ export const AppContextProvider: React.FunctionComponent = function ({ children 
     isLoaded: boolean,
     data: IClimateMavgDTO[]
   }>({
-    isLoaded: true,
+    isLoaded: false,
     data: [],
   });
   const [aavg, setAavg] = useState<{
     isLoaded: boolean,
     data: IClimateAavgDTO[]
   }>({
-    isLoaded: true,
+    isLoaded: false,
     data: [],
   });
   const [flashMessages, setFlashMessages] = useState<{message: string, type: string}[]>([]);
-  const [filter, setFilter] = useState<IFilterForm>({});
+  const [filter, setFilter] = useState<IFilterForm>({
+    country: COUNTRIES[0],
+    period: PERIODS[0],
+    type: TYPES[0],
+  });
 
   const updateMavg = (climateData: {
     isLoaded: boolean,
