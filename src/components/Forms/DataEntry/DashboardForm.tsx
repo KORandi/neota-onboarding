@@ -85,6 +85,7 @@ const DashboardForm: FunctionComponent<DashboardFormProps> = function ({ id, tog
                     <Input
                           // eslint-disable-next-line react/jsx-props-no-spreading
                       {...field}
+                      type="number"
                     />
                     <span
                       className={classNames({ 'text-danger': invalid, invisible: !invalid })}
