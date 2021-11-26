@@ -11,6 +11,7 @@ export function getGCMDisplayName(technicalName: string): string {
 }
 
 export function calculateAnnualAvarage(input: IClimateAavgDTO[][]): IClimateAavgDTO[] {
+  const inputLength = input.length;
   return input.reduce(
     (acc, response) => acc.map(
       (accClimateRecord) => (
@@ -25,11 +26,12 @@ export function calculateAnnualAvarage(input: IClimateAavgDTO[][]): IClimateAavg
       ),
     ),
   ).map((response) => (
-    { ...response, annualData: response.annualData.map((month) => month / input.length) }
+    { ...response, annualData: response.annualData.map((ages) => ages / inputLength) }
   ));
 }
 
 export function calculateMonthlyAvarage(input: IClimateMavgDTO[][]): IClimateMavgDTO[] {
+  const inputLength = input.length;
   return input.reduce(
     (acc, response) => acc.map(
       (accClimateRecord) => (
@@ -44,6 +46,6 @@ export function calculateMonthlyAvarage(input: IClimateMavgDTO[][]): IClimateMav
       ),
     ),
   ).map((response) => (
-    { ...response, monthVals: response.monthVals.map((month) => month / input.length) }
+    { ...response, monthVals: response.monthVals.map((month) => month / inputLength) }
   ));
 }
